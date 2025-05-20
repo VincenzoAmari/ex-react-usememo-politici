@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, memo } from "react";
 
 const PoliticoCard = memo(function PoliticoCard({ politico }) {
   return (

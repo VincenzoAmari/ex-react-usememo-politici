@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 function App() {
   const [politici, setPolitici] = useState([]);
@@ -11,15 +11,17 @@ function App() {
       .catch((error) => console.error(error));
   }, []);
 
-  const filtroPolitici = politici.filter((politico) => {
-    const nelNome = politico.name
-      .toLowerCase()
-      .includes(ricerca.toLocaleLowerCase());
-    const nellaBiografia = politico.biography
-      .toLowerCase()
-      .includes(ricerca.toLocaleLowerCase());
-    return nelNome || nellaBiografia;
-  });
+  const filtroPolitici = useMemo(() => {
+    return politici.filter((politico) => {
+      const nelNome = politico.name
+        .toLowerCase()
+        .includes(ricerca.toLocaleLowerCase());
+      const nellaBiografia = politico.biography
+        .toLowerCase()
+        .includes(ricerca.toLocaleLowerCase());
+      return nelNome || nellaBiografia;
+    });
+  }, [politici, ricerca]);
 
   return (
     <div>
